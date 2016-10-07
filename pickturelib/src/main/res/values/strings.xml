@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">pickturelib</string>
+
+    <string name="__picker_all_image">所有图片</string>
+
+    <string name="__max_limit">最多可以选择%1$d张</string>
+
+    <string name="__unv2_select">%1$d/%2$d</string>
+</resources>

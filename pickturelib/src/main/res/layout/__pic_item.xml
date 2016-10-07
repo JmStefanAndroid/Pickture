@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<me.stefan.pickturelib.widget.SquareRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <ImageView
+        android:id="@+id/__pic_p_iv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:adjustViewBounds="true"
+        android:background="@drawable/__pick_pic_bg"
+        android:padding="1dip"
+        android:scaleType="centerCrop" />
+
+    <ImageView
+        android:id="@+id/__pic_p_selected_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="5dip"
+        android:clickable="true"
+        android:padding="5dip"
+        android:src="@drawable/__ic_pic_unselected" />
+
+</me.stefan.pickturelib.widget.SquareRelativeLayout>

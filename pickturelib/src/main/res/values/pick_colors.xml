@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="__actionbar_color">@android:color/holo_blue_dark</color>
+
+    <color name="__pick_complete_btn_color">@android:color/white</color>
+
+    <color name="__pick_pic_item_normal_color">@android:color/white</color>
+
+    <color name="__pick_pic_item_slected_color">@android:color/holo_blue_light</color>
+</resources>
