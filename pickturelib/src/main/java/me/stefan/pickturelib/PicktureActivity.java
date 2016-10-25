@@ -102,8 +102,4 @@ public class PicktureActivity extends AppCompatActivity implements OnPickListene
         return false;
     }
 
-    @Override
-    public void onItemLongClicked(Pic pic, int position) {
-
-    }
 }

@@ -14,7 +14,6 @@ import me.stefan.pickturelib.interf.Selectable;
  * 处理选中取消逻辑
  */
 public class SelectableAdapter<T extends RecyclerView.ViewHolder> extends AnimRecyclerViewAdapter<T> implements Selectable {
-    protected List<Pic> mList;
     protected List<Pic> mSelectedList = new ArrayList<>();
     protected List<PicFolder> mFolderList;
     protected List<String> mSelectedStrList = new ArrayList<>();

@@ -20,13 +20,7 @@ public interface OnPickListener {
      */
     boolean onItemClicked(Pic pic, int position, boolean isPreSelected);
 
-    /**
-     * 长按一张PIC
-     *
-     * @param pic      图片资源
-     * @param position 图片位置
-     */
-    void onItemLongClicked(Pic pic, int position);
+
 
 
 }

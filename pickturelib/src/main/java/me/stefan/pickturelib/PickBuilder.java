@@ -13,20 +13,21 @@ import me.stefan.pickturelib.constant.Constant;
  */
 public class PickBuilder implements Serializable {
 
-    protected int colum;
+    protected int column;
     protected int max;
     protected boolean hasCamera;
     protected List<String> selectedStrList;
     protected static Context mContext;
 
 
+
     public PickBuilder() {
-        colum = Constant.DEFAULT_COLUM;
+        column = Constant.DEFAULT_COLUMN;
         max = Constant.DEFAULT_MAX;
     }
 
-    public int getColum() {
-        return colum;
+    public int getColumn() {
+        return column;
     }
 
     public int getMax() {

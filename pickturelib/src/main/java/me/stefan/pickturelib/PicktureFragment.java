@@ -71,7 +71,7 @@ public class PicktureFragment extends Fragment {
         mFolderList = new ArrayList<>();
 
         int scWidth = getResources().getDisplayMetrics().widthPixels;
-        mPicAdapter = new PicRecyclerViewAdapter(mGlideRequestManager, (ArrayList<PicFolder>) mFolderList, mListener, scWidth / pickBuilder.getColum());
+        mPicAdapter = new PicRecyclerViewAdapter(mGlideRequestManager, (ArrayList<PicFolder>) mFolderList, mListener, scWidth / pickBuilder.getColumn());
 
         PicLoader.getPhotoDirs(getActivity(), null, new PicLoader.PhotosResultCallback() {
             @Override
@@ -96,7 +96,7 @@ public class PicktureFragment extends Fragment {
         // Set the adapter
         Context context = view.getContext();
         mPicRecyclerView = (RecyclerView) view;
-        mPicRecyclerView.setLayoutManager(new GridLayoutManager(context, pickBuilder.getColum()));
+        mPicRecyclerView.setLayoutManager(new GridLayoutManager(context, pickBuilder.getColumn()));
         mPicRecyclerView.setAdapter(mPicAdapter);
         mPicRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override

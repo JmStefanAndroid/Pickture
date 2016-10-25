@@ -91,12 +91,12 @@ public class PicRecyclerViewAdapter extends SelectableAdapter<PicRecyclerViewAda
             }
         });
 
-//        holder.mView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
+    }
+
+
+    @Override
+    public int getItemCount() {
+        return mFolderList == null || mFolderList.size() == 0 ? 0 : getCurrentPicList().size();
     }
 
     /**
@@ -108,11 +108,6 @@ public class PicRecyclerViewAdapter extends SelectableAdapter<PicRecyclerViewAda
     public void onViewRecycled(ViewHolder holder) {
         Glide.clear(holder.mPicView);
         super.onViewRecycled(holder);
-    }
-
-    @Override
-    public int getItemCount() {
-        return mFolderList == null || mFolderList.size() == 0 ? 0 : getCurrentPicList().size();
     }
 
     @Override

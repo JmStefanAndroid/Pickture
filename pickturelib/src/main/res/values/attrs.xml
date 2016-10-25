@@ -9,4 +9,10 @@
         <item name="android:scrollingCache">false</item>
         <item name="android:background">@android:color/white</item>
     </style>
+
+    <declare-styleable name="PickRecyclerView">
+        <attr name="__column" format="integer"/>
+
+
+    </declare-styleable>
 </resources>

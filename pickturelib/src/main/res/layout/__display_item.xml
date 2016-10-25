@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<me.stefan.pickturelib.widget.SquareRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <ImageView
+        android:id="@+id/__display_iv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_margin="4dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/__pick_pic_bg"
+        android:scaleType="centerCrop" />
+
+    <me.stefan.pickturelib.widget.SquareRelativeLayout
+        android:id="@+id/__display_delete_sqrl"
+        android:layout_width="32dp"
+        android:scaleX="0"
+        android:scaleY="0"
+        android:visibility="gone"
+        android:layout_height="32dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="4dp"
+        android:layout_marginTop="4dp">
+
+        <me.stefan.pickturelib.widget.SquareRelativeLayout
+            android:id="@+id/__display_delete_iv"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:src="@drawable/sharp_rect" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_margin="5dip"
+                android:src="@drawable/svg_delete" />
+
+
+        </me.stefan.pickturelib.widget.SquareRelativeLayout>
+    </me.stefan.pickturelib.widget.SquareRelativeLayout>
+
+
+</me.stefan.pickturelib.widget.SquareRelativeLayout>
