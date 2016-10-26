@@ -19,6 +19,7 @@ A small-scale android  widget which provides easy attach to photo selection.
  * 如果有bug，麻烦您及时反馈，我也将在第一时间进行处理
  * 如何联系我：648701906@qq.com
  <br></br>
+ 
 License
 --------
 ```
