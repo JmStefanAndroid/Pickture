@@ -9,7 +9,7 @@ A small-scale android  widget which provides easy attach to photo selection.
 * 如何使用：目前还在处理Maven仓库的问题，暂时无法提供`Library Denpendency`
 
 # 效果演示
- ![](https://github.com/JmStefanAndroid/Pickture/tree/f469a6f4544a1ffda180511c7b98d8f9e8565bde/howtouse.gif)  
+ ![](https://github.com/JmStefanAndroid/Pickture/tree/master/gif/howtouse.gif)  
  
 ### [APK下载](https://github.com/JmStefanAndroid/Pickture/tree/master/apk/pickture.apk)  
  
