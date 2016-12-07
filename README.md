@@ -11,7 +11,7 @@ A small-scale android  widget which provides easy attach to photo selection.
 ## 效果图
  ![Pickture](/gif/howtouse.gif)  
  
-### [APK下载](https://github.com/JmStefanAndroid/Pickture/tree/master/apk/pickture.apk)  
+### [APK下载](https://github.com/JmStefanAndroid/Pickture/tree/master/apk/pickture.apk?raw=true)  
  
 ### THE END
  * 项目里面的一些实现借鉴了`github`上的一些图片选择库，非常感谢他们共享了这些资源
