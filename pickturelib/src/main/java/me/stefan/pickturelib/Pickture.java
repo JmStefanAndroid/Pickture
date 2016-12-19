@@ -23,7 +23,7 @@ public class Pickture {
 
     private static PickBuilder mBuilder;
     private static Pickture mInstance;
-    private static PickRecyclerView mPickRecyclerView;
+    private static Context mContext;
 
     public static final int CODE_REQUEST = 0X999;
 
@@ -34,8 +34,8 @@ public class Pickture {
 
     public static Pickture with(Context mContext) {
         mInstance = PicktureSingle.mInstance;
-        mBuilder = new PickBuilder();
-        mBuilder.mContext = mContext;
+        mInstance.mBuilder = new PickBuilder();
+        mInstance.mContext = mContext;
         return mInstance;
     }
 
@@ -46,7 +46,7 @@ public class Pickture {
      * @return {@link PickBuilder}
      */
     public Pickture column(int column) {
-        mBuilder.column = column;
+        mInstance.mBuilder.column = column;
         return mInstance;
     }
 
@@ -57,12 +57,12 @@ public class Pickture {
      * @return {@link PickBuilder}
      */
     public Pickture max(int max) {
-        mBuilder.max = max;
+        mInstance.mBuilder.max = max;
         return mInstance;
     }
 
     public Pickture hasCamera(boolean hasCamera) {
-        mBuilder.hasCamera = hasCamera;
+        mInstance.mBuilder.hasCamera = hasCamera;
         return mInstance;
     }
 
@@ -73,7 +73,7 @@ public class Pickture {
      * @return {@link PickBuilder}
      */
     public Pickture selected(List<String> selectedStrList) {
-        mBuilder.selectedStrList = selectedStrList;
+        mInstance.mBuilder.selectedStrList = selectedStrList;
         return mInstance;
     }
 
@@ -86,7 +86,7 @@ public class Pickture {
      * @return {@link PickBuilder}
      */
     public void showOn(PickRecyclerView pickRecyclerView) {
-        pickRecyclerView.setBuilder(mBuilder);
+        pickRecyclerView.setBuilder(mInstance.mBuilder);
     }
 
 
@@ -94,8 +94,8 @@ public class Pickture {
      * 跳转到PicktureActivity
      */
     public void create() {
-        if (mBuilder.mContext != null)
-            ((Activity) mBuilder.mContext).startActivityForResult(new Intent(mBuilder.mContext, PicktureActivity.class).putExtra(PARAM_BUILDER, mBuilder), CODE_REQUEST);
+        if (mInstance.mContext != null)
+            ((Activity) mInstance.mContext).startActivityForResult(new Intent(mInstance.mContext, PicktureActivity.class).putExtra(PARAM_BUILDER, mInstance.mBuilder), CODE_REQUEST);
 
     }
 

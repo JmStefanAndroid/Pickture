@@ -17,6 +17,7 @@ import java.util.List;
 
 import me.stefan.pickturelib.adapter.PicRecyclerViewAdapter;
 import me.stefan.pickturelib.constant.Constant;
+import me.stefan.pickturelib.domain.Pic;
 import me.stefan.pickturelib.domain.PicFolder;
 import me.stefan.pickturelib.interf.OnPickListener;
 import me.stefan.pickturelib.utils.PicLoader;
@@ -39,6 +40,7 @@ public class PicktureFragment extends Fragment {
     private RecyclerView mPicRecyclerView;
 
     private PickBuilder pickBuilder;
+    private String TAG=this.getClass().getSimpleName();
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -71,7 +73,7 @@ public class PicktureFragment extends Fragment {
         mFolderList = new ArrayList<>();
 
         int scWidth = getResources().getDisplayMetrics().widthPixels;
-        mPicAdapter = new PicRecyclerViewAdapter(mGlideRequestManager, (ArrayList<PicFolder>) mFolderList, mListener, scWidth / pickBuilder.getColumn());
+        mPicAdapter = new PicRecyclerViewAdapter(mGlideRequestManager, pickBuilder, (ArrayList<PicFolder>) mFolderList, mListener, scWidth / pickBuilder.getColumn());
 
         PicLoader.getPhotoDirs(getActivity(), null, new PicLoader.PhotosResultCallback() {
             @Override
@@ -142,4 +144,17 @@ public class PicktureFragment extends Fragment {
     public PicRecyclerViewAdapter getPicAdapter() {
         return mPicAdapter;
     }
+
+    /**
+     * invalide the data and fragment
+     */
+    public void invalide(Pic pic) {
+        if (mFolderList != null && mFolderList.size() != 0)
+            mFolderList.get(PicLoader.INDEX_ALL_PHOTOS).addPhoto(pic);
+        if (mPicAdapter != null) {
+            mPicAdapter.setHasSelected(pickBuilder.getSelectedStrList());
+            mPicAdapter.notifyDataSetChanged();
+        }
+    }
+
 }

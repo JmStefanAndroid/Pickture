@@ -11,5 +11,7 @@ public class Constant {
     public static final int DEFAULT_MAX = 8;
     public static final int DEFAULT_DSP_COLUMN = 4;
 
+    public static final int REQUEST_TAKE_PHOTO=0x00000001;
+
 
 }

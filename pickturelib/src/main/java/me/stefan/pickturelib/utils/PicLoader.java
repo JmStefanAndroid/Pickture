@@ -46,6 +46,7 @@ public class PicLoader {
             return new FolderLoader(context.get());
         }
 
+
         @Override
         public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
 
@@ -72,6 +73,7 @@ public class PicLoader {
 //                    photoDirectory.setDateAdded(data.getLong(data.getColumnIndexOrThrow(DATE_ADDED)));
                     directories.add(photoDirectory);
                 } else {
+                    directories.get(directories.indexOf(photoDirectory)).setPath(path);
                     directories.get(directories.indexOf(photoDirectory)).addPhoto(imageId, path, name);
                 }
                 /**

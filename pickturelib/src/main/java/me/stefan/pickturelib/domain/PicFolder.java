@@ -50,6 +50,11 @@ public class PicFolder implements Parcelable {
         pics.add(new Pic(path, name, id));
     }
 
+    public void addPhoto(Pic pic) {
+        if (pic != null)
+            pics.add(pic);
+    }
+
     public String getId() {
         return id;
     }
@@ -124,7 +129,7 @@ public class PicFolder implements Parcelable {
         name = in.readString();
         cover = in.readString();
         path = in.readString();
-        in.readTypedList(pics,Pic.CREATOR);
+        in.readTypedList(pics, Pic.CREATOR);
     }
 
     public PicFolder() {

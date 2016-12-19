@@ -11,8 +11,10 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import me.stefan.pickturelib.constant.Constant;
 import me.stefan.pickturelib.domain.Pic;
 import me.stefan.pickturelib.interf.OnPickListener;
+import me.stefan.pickturelib.utils.PhotoHelper;
 
 /**
  * 照片展示Ac
@@ -24,19 +26,25 @@ public class PicktureActivity extends AppCompatActivity implements OnPickListene
     private Toolbar mToolbar;
     private Button mCommintBtn;
     private int curSize;
+    private PhotoHelper mPhotoHelper;
+    private String TAG = getClass().getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pick);
 
-
         if (getIntent().hasExtra(Pickture.PARAM_BUILDER))
             pickBuilder = (PickBuilder) getIntent().getSerializableExtra(Pickture.PARAM_BUILDER);
 
+        initBase();
         initView();
         loadFrag();
 
+    }
+
+    private void initBase() {
+        mPhotoHelper = new PhotoHelper(this);
     }
 
     private void initView() {
@@ -102,4 +110,31 @@ public class PicktureActivity extends AppCompatActivity implements OnPickListene
         return false;
     }
 
+    @Override
+    public void onCameraClick() {
+        mPhotoHelper.goCamera(Constant.REQUEST_TAKE_PHOTO);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == Constant.REQUEST_TAKE_PHOTO) {
+            Pic pic = mPhotoHelper.onLoadPic();
+            if (pic != null)
+                if (mPicktureFragment != null) mPicktureFragment.invalide(pic);
+        }
+    }
+
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        mPhotoHelper.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        mPhotoHelper.onRestoreInstanceState(savedInstanceState);
+    }
 }

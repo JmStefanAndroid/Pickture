@@ -1,7 +1,5 @@
 package me.stefan.pickturelib;
 
-import android.content.Context;
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -17,7 +15,6 @@ public class PickBuilder implements Serializable {
     protected int max;
     protected boolean hasCamera;
     protected List<String> selectedStrList;
-    protected static Context mContext;
 
 
 
@@ -25,6 +22,7 @@ public class PickBuilder implements Serializable {
         column = Constant.DEFAULT_COLUMN;
         max = Constant.DEFAULT_MAX;
     }
+
 
     public int getColumn() {
         return column;
@@ -36,5 +34,9 @@ public class PickBuilder implements Serializable {
 
     public List<String> getSelectedStrList() {
         return selectedStrList;
+    }
+
+    public boolean isHasCamera() {
+        return hasCamera;
     }
 }

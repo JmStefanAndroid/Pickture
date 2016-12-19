@@ -12,6 +12,7 @@ import com.bumptech.glide.RequestManager;
 import java.io.File;
 import java.util.ArrayList;
 
+import me.stefan.pickturelib.PickBuilder;
 import me.stefan.pickturelib.R;
 import me.stefan.pickturelib.domain.Pic;
 import me.stefan.pickturelib.domain.PicFolder;
@@ -27,10 +28,13 @@ public class PicRecyclerViewAdapter extends SelectableAdapter<PicRecyclerViewAda
     private final OnPickListener mPickListener;
     private final int mImageWh;
     private RequestManager mRequestManager;
+    private PickBuilder mPickBuilder;
     private final int[] mSelectedIcSour = new int[]{R.drawable.__ic_pic_unselected, R.drawable.__ic_pic_selected};
 
-    public PicRecyclerViewAdapter(RequestManager requestManager, ArrayList<PicFolder> items, OnPickListener listener, int imageWh) {
+    public PicRecyclerViewAdapter(RequestManager requestManager, PickBuilder pickBuilder, ArrayList<PicFolder> items,
+                                  OnPickListener listener, int imageWh) {
         this.mFolderList = items;
+        mPickBuilder = pickBuilder;
         mPickListener = listener;
         mImageWh = imageWh;
         mRequestManager = requestManager;
@@ -48,55 +52,63 @@ public class PicRecyclerViewAdapter extends SelectableAdapter<PicRecyclerViewAda
     public void onBindViewHolder(final ViewHolder holder, int position) {
         showItemAnim(holder.mView, position, AnimType.OVERLAPPING);
 
-        final Pic pic = getCurrentPicList().get(position);
-        holder.bind(pic);
-
-        final boolean isSelected = isSelected(pic);
-        if (isSelected) {
-            //已选中
-            holder.mPSelected.setSelected(true);
-            holder.mPSelected.setImageResource(mSelectedIcSour[1]);
-            holder.mPicView.setAlpha(0.5f);
-            holder.mPicView.setSelected(true);
+        if (position == 0 && mPickBuilder.isHasCamera()) {//hasCamera
+            holder.showCamera();
         } else {
-            //未选中
-            holder.mPSelected.setSelected(false);
-            holder.mPSelected.setImageResource(mSelectedIcSour[0]);
-            holder.mPicView.setAlpha(1f);
-            holder.mPicView.setSelected(false);
+            if (mPickBuilder.isHasCamera())
+                position--;
+            final Pic pic = getCurrentPicList().get(position);
+
+            holder.bind(pic);
+
+            final boolean isSelected = isSelected(pic);
+            if (isSelected) {
+                //selected
+                holder.mPSelected.setSelected(true);
+                holder.mPSelected.setImageResource(mSelectedIcSour[1]);
+                holder.mPicView.setAlpha(0.5f);
+                holder.mPicView.setSelected(true);
+            } else {
+                //unselect
+                holder.mPSelected.setSelected(false);
+                holder.mPSelected.setImageResource(mSelectedIcSour[0]);
+                holder.mPicView.setAlpha(1f);
+                holder.mPicView.setSelected(false);
+            }
+
+            holder.mPicView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mPickListener == null) return;
+                    holder.mPSelected.performClick();
+                }
+            });
+            holder.mPSelected.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (holder.mLockTag) return;
+                    holder.mLockTag = true;
+                    if (mPickListener == null) {
+                        return;
+                    }
+                    int pos = holder
+                            .getAdapterPosition();
+                    if (mPickListener.onItemClicked(holder.mPic, pos, !isSelected)) {
+                        toggle(holder.mPic);
+
+                        notifyItemChanged(pos);
+                    }
+                }
+            });
         }
-
-        holder.mPicView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mPickListener == null) return;
-                holder.mPSelected.performClick();
-            }
-        });
-        holder.mPSelected.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (holder.mLockTag) return;
-                holder.mLockTag = true;
-                if (mPickListener == null) {
-                    return;
-                }
-                int pos = holder
-                        .getAdapterPosition();
-                if (mPickListener.onItemClicked(holder.mPic, pos, !isSelected)) {
-                    toggle(holder.mPic);
-
-                    notifyItemChanged(pos);
-                }
-            }
-        });
-
     }
 
 
     @Override
     public int getItemCount() {
-        return mFolderList == null || mFolderList.size() == 0 ? 0 : getCurrentPicList().size();
+        return mFolderList == null || mFolderList.size() == 0 ?
+                (mFolderList == null ? 0 : mPickBuilder.isHasCamera() ? 1 : 0) :
+                (mPickBuilder.isHasCamera() ? getCurrentPicList().size() + 1 : getCurrentPicList().size());
     }
 
     /**
@@ -121,7 +133,7 @@ public class PicRecyclerViewAdapter extends SelectableAdapter<PicRecyclerViewAda
         public final ImageView mPicView;
         public final ImageView mPSelected;
         public Pic mPic;
-        //当tag为true时，表示正在处理上次的操作事务，以此防止频繁点击，导致处理逻辑出错
+        //in order to avoid err of frequent clicks
         public boolean mLockTag;
 
         public ViewHolder(View view) {
@@ -139,13 +151,29 @@ public class PicRecyclerViewAdapter extends SelectableAdapter<PicRecyclerViewAda
             mRequestManager
                     .load(new File(mPic.getPath()))
                     .centerCrop()
-                    .dontAnimate()
+                    .crossFade()
                     .thumbnail(0.5f)
                     .override(mImageWh, mImageWh)
 //                    .placeholder(R.drawable.asv)
                     .error(R.drawable.__picker_ic_broken_image_black_48dp)
                     .into(mPicView);
             mLockTag = false;
+        }
+
+        public void showCamera() {
+            mPicView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+            mRequestManager
+                    .load(R.drawable.__ic_takephoto)
+                    .into(mPicView);
+            mLockTag = false;
+            mPSelected.setVisibility(View.GONE);
+            mPicView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mPickListener != null)
+                        mPickListener.onCameraClick();
+                }
+            });
         }
 
     }
