@@ -649,5 +649,5 @@ public class NoAlphaAnimator extends RecyclerView.ItemAnimator {
         }
     }
 
-    ;
+    
 }

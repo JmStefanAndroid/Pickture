@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mPickture = Pickture.with(MainActivity.this).column(COLUMN).max(MAX).selected(selectedList).hasCamera(true);
+        mPickture = Pickture.with(MainActivity.this).column(COLUMN).max(MAX).hasCamera(true).selected(selectedList);
 
         //当需要同步展示到 PickRecyclerView 需要同步基础参数给你的 mPickRecyclerView ，这个方法就是用于同步的
         mPickture.showOn(mPickRecyclerView);
