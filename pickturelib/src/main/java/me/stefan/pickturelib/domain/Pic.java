@@ -76,4 +76,12 @@ public class Pic implements Parcelable {
         name = in.readString();
         uid = in.readInt();
     }
+
+
+    @Override
+    public boolean equals(Object o) {
+        Pic pic= (Pic) o;
+        if(pic.getUid()==getUid()&&pic.getPath().equals(pic.getPath())&&pic.getName().equals(pic.getName()))return  true;
+        return false;
+    }
 }
