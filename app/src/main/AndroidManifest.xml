@@ -27,6 +27,11 @@
             android:name="me.stefan.pickturelib.PicktureActivity"
             android:configChanges="orientation|screenSize"
             android:theme="@style/PickerTheme"></activity>
+        <activity
+            android:name="me.stefan.pickturelib.ViewPagerActivity"
+            android:configChanges="orientation|screenSize"
+            android:launchMode="singleTop"
+            android:theme="@style/PickerTheme"></activity>
     </application>
 
 </manifest>

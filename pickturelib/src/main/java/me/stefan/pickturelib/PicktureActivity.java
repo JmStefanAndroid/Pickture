@@ -15,6 +15,7 @@ import me.stefan.pickturelib.constant.Constant;
 import me.stefan.pickturelib.domain.Pic;
 import me.stefan.pickturelib.interf.OnPickListener;
 import me.stefan.pickturelib.utils.PhotoHelper;
+import me.stefan.pickturelib.utils.PicLoader;
 
 /**
  * 照片展示Ac
@@ -94,7 +95,19 @@ public class PicktureActivity extends AppCompatActivity implements OnPickListene
     }
 
     @Override
-    public boolean onItemClicked(Pic pic, int position, boolean isPreSelected) {
+    public void onItemClicked(Pic pic, int position) {
+        if (pickBuilder.hasCamera) position--;
+        //显示大图
+        if (mPicktureFragment.getFolderList() != null) {
+            Intent mIntent = new Intent(this, ViewPagerActivity.class);
+            mIntent.putExtra(Constant.VIEW_PAGER_POS, position);
+            mIntent.putExtra(Constant.VIEW_PAGER_PATH, (ArrayList<String>) mPicktureFragment.getFolderList().get(PicLoader.INDEX_ALL_PHOTOS).getPhotoPaths());
+            startActivity(mIntent);
+        }
+    }
+
+    @Override
+    public boolean onToggleClicked(Pic pic, int position, boolean isPreSelected) {
         boolean canOperate = isPreSelected ? curSize < pickBuilder.getMax() : curSize > 0;
         if (canOperate) {
             curSize = isPreSelected ? ++curSize : --curSize;

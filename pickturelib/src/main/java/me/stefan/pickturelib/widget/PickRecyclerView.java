@@ -1,6 +1,7 @@
 package me.stefan.pickturelib.widget;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -14,10 +15,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import me.stefan.pickturelib.PickBuilder;
+import me.stefan.pickturelib.ViewPagerActivity;
 import me.stefan.pickturelib.adapter.DisplayRecyclerAdapter;
+import me.stefan.pickturelib.constant.Constant;
 import me.stefan.pickturelib.interf.OnOperateListener;
-import me.stefan.pickturelib.interf.OperateListenerAdapter;
 import me.stefan.pickturelib.interf.OnStartDragListener;
+import me.stefan.pickturelib.interf.OperateListenerAdapter;
 import me.stefan.pickturelib.utils.ItemTouchHelperCallback;
 import me.stefan.pickturelib.utils.NoAlphaAnimator;
 
@@ -33,8 +36,7 @@ public class PickRecyclerView extends RecyclerView implements OnStartDragListene
     private RequestManager mGlideRequestManager;
     private DisplayRecyclerAdapter mDisplayRecyclerAdapter;
     private PickBuilder mBuilder;
-    private OnOperateListener mOnOperateListener = new OperateListenerAdapter() {
-    };
+    private OnOperateListener mOnOperateListener ;
     /**
      * 用户的照片路径列表，主要是用于保存用户Activity的索引，便于
      */
@@ -52,6 +54,22 @@ public class PickRecyclerView extends RecyclerView implements OnStartDragListene
 
         mGlideRequestManager = Glide.with(mContext);
         if (mBuilder == null) this.mBuilder = new PickBuilder();
+        mOnOperateListener = new OperateListenerAdapter() {
+            @Override
+            public void onItemClicked(String picPath, int position) {
+                super.onItemClicked(picPath, position);
+
+                String[] pathArr=new String[]{};
+                if(imageList!=null){
+                    imageList.toArray(pathArr);
+                    Intent mIntent=new Intent(mContext, ViewPagerActivity.class);
+                    mIntent.putExtra(Constant.VIEW_PAGER_POS,position);
+                    mIntent.putExtra(Constant.VIEW_PAGER_PATH,pathArr);
+                    mContext.startActivity(mIntent);
+                }
+            }
+        };
+
         mDisplayRecyclerAdapter = new DisplayRecyclerAdapter(mGlideRequestManager, imageList, mBuilder.getMax(), this, mOnOperateListener);
         setLayoutManager(new GridLayoutManager(mContext, this.mBuilder.getColumn()));
         setItemAnimator(new NoAlphaAnimator());

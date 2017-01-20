@@ -145,6 +145,10 @@ public class PicktureFragment extends Fragment {
         return mPicAdapter;
     }
 
+    public List<PicFolder> getFolderList() {
+        return mFolderList;
+    }
+
     /**
      * invalide the data and fragment
      */

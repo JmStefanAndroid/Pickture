@@ -15,10 +15,19 @@ public interface OnPickListener {
      *
      * @param pic           图片资源
      * @param position      图片位置
+     * @return 是否允许选中
+     */
+    void onItemClicked(Pic pic, int position);
+
+    /**
+     * 点击图片右上角的toggle
+     *
+     * @param pic           图片资源
+     * @param position      图片位置
      * @param isPreSelected 是否即将选中
      * @return 是否允许选中
      */
-    boolean onItemClicked(Pic pic, int position, boolean isPreSelected);
+    boolean onToggleClicked(Pic pic, int position, boolean isPreSelected);
 
 
     /**

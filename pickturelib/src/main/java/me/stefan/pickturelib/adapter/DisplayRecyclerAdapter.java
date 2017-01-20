@@ -33,7 +33,7 @@ public class DisplayRecyclerAdapter extends RecyclerView.Adapter<DisplayRecycler
     private OnOperateListener mOnOperateListener;
     private final int max;
     PickRecyclerView mPickRecyclerView;
-    private boolean showflag;
+    private boolean showflag;//是否显示了删除图标
 
     public DisplayRecyclerAdapter(RequestManager mRequestManager, ArrayList<String> imagePathList,
                                   int max, PickRecyclerView mPickRecyclerView, OnOperateListener mOnOperateListener
