@@ -1,5 +1,7 @@
 package me.stefan.pickturelib.interf;
 
+import android.view.View;
+
 import me.stefan.pickturelib.domain.Pic;
 
 /**
@@ -17,7 +19,7 @@ public interface OnPickListener {
      * @param position      图片位置
      * @return 是否允许选中
      */
-    void onItemClicked(Pic pic, int position);
+    void onItemClicked(View view, Pic pic, int position);
 
     /**
      * 点击图片右上角的toggle

@@ -3,14 +3,11 @@ package me.stefan.pickturelib;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -20,51 +17,42 @@ import java.util.ArrayList;
 
 import me.stefan.pickturelib.constant.Constant;
 import me.stefan.pickturelib.widget.HackyViewPager;
+import uk.co.senab.photoview.PhotoView;
+import uk.co.senab.photoview.PhotoViewAttacher;
 
 public class ViewPagerActivity extends AppCompatActivity {
-    private static ArrayList<String> sDrawables=new ArrayList<>();
-    private static RequestManager mGlideRequestManager;
-    private static int scWidth, scHeight, tartgetPos;
-    private Toolbar mToolbar;
+    private ArrayList<String> sDrawables = new ArrayList<>();
+    private RequestManager mGlideRequestManager;
+    private static int tartgetPos;
+    public static final String TRANSIT_PIC = "pickture";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_pager);
         init();
+
     }
-
-    protected void setupToolbar(Toolbar mToolbar, boolean homeIconVisible) {
-        if (null == getSupportActionBar()) {
-            setSupportActionBar(mToolbar);
-        }
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(homeIconVisible);
-    }
-
 
     private void init() {
         ViewPager mViewPager = (HackyViewPager) findViewById(R.id.view_pager);
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        setupToolbar(mToolbar, true);
-
-        SamplePagerAdapter adapter=new SamplePagerAdapter();
-
-
-        Intent mIntent = getIntent();
-        sDrawables = mIntent.getStringArrayListExtra(Constant.VIEW_PAGER_PATH);
-        mViewPager.setAdapter(adapter);
-
-        tartgetPos = mIntent.getIntExtra(Constant.VIEW_PAGER_POS, 0);
-        mViewPager.setCurrentItem(tartgetPos);
+        ViewCompat.setTransitionName(mViewPager, TRANSIT_PIC);
         mGlideRequestManager = Glide.with(this);
 
-        scWidth = getResources().getDisplayMetrics().widthPixels;
-        scHeight = getResources().getDisplayMetrics().heightPixels;
+        setupIntent();
 
-        final TextView mIndicatorTv= (TextView) findViewById(R.id.indicator_tv);
 
-        mIndicatorTv.setText(getString(R.string.__unv2_select, tartgetPos+1, sDrawables.size()));
+        setupViewPager(mViewPager);
+    }
+
+    private void setupViewPager(ViewPager mViewPager) {
+        SamplePagerAdapter adapter = new SamplePagerAdapter();
+        mViewPager.setAdapter(adapter);
+        mViewPager.setCurrentItem(tartgetPos);
+
+        final TextView mIndicatorTv = (TextView) findViewById(R.id.indicator_tv);
+
+        mIndicatorTv.setText(getString(R.string.__unv2_select, tartgetPos + 1, sDrawables.size()));
 
         mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -84,7 +72,13 @@ public class ViewPagerActivity extends AppCompatActivity {
         });
     }
 
-    static class SamplePagerAdapter extends PagerAdapter {
+    private void setupIntent() {
+        Intent mIntent = getIntent();
+        sDrawables = mIntent.getStringArrayListExtra(Constant.VIEW_PAGER_PATH);
+        tartgetPos = mIntent.getIntExtra(Constant.VIEW_PAGER_POS, 0);
+    }
+
+    class SamplePagerAdapter extends PagerAdapter {
 
 
         @Override
@@ -94,37 +88,34 @@ public class ViewPagerActivity extends AppCompatActivity {
 
         @Override
         public View instantiateItem(ViewGroup container, int position) {
-            ImageView imageView = new ImageView(container.getContext());
+            PhotoView imageView = new PhotoView(container.getContext());
             mGlideRequestManager
                     .load(sDrawables.get(position))
                     .crossFade()
                     .thumbnail(0.5f)
                     .error(R.drawable.__picker_ic_broken_image_black_48dp)
                     .into(imageView);
-            // Now just add PhotoView to ViewPager and return it
-            container.addView(imageView, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+            container.addView(imageView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            imageView.setOnViewTapListener(new PhotoViewAttacher.OnViewTapListener() {
+                @Override
+                public void onViewTap(View view, float x, float y) {
+                    onBackPressed();
+                }
+            });
 
             return imageView;
         }
 
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
+
             container.removeView((View) object);
+
         }
 
         @Override
         public boolean isViewFromObject(View view, Object object) {
             return view == object;
         }
-
     }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-        }
-        return false;
-    }
-
 }

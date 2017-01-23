@@ -32,6 +32,7 @@ dependencies {
     compile "com.android.support:recyclerview-v7:${ANDROID_BUILD_LIB_VERSION}"
     compile "com.android.support:design:${ANDROID_BUILD_LIB_VERSION}"
     compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.github.chrisbanes.photoview:library:1.2.3'
 }
 group = 'com.jmstefan'
 version = '1.0.0'

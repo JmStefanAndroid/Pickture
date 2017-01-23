@@ -80,7 +80,7 @@ public class PicRecyclerViewAdapter extends SelectableAdapter<PicRecyclerViewAda
                 @Override
                 public void onClick(View v) {
                     if (mPickListener == null) return;
-                    mPickListener.onItemClicked(holder.mPic, holder
+                    mPickListener.onItemClicked(holder.mPicView,holder.mPic, holder
                             .getAdapterPosition());
                 }
             });
