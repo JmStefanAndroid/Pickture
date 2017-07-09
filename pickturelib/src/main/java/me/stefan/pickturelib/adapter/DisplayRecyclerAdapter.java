@@ -80,7 +80,7 @@ public class DisplayRecyclerAdapter extends RecyclerView.Adapter<DisplayRecycler
                         mOnOperateListener.onClickAdd();
                 }
             });
-
+            holder.itemView.setOnTouchListener(null);
             mRequestManager
                     .load(R.drawable.asy)
                     .fitCenter()
