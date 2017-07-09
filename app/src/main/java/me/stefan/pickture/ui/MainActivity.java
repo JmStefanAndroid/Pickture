@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private final int COLUMN = 4, MAX = 18;
     private Pickture mPickture;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
                 //点击添加按钮
                 mPickture.selected(selectedList).create();
             }
+
         });
     }
 

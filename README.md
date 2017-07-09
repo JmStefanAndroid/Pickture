@@ -1,15 +1,15 @@
 # Pickture
 A small-scale android  widget which provides easy attach to photo selection.
-<br>q：一个怎样的控件呢？a:照片的选择+照片Gridview展示（拖拽排序、删除）+照片viewpager演示（放大、缩小）
+<br>q：一个怎样的控件呢？a:照片的选择+照片Gridview展示（拖拽排序、删除）+照片放大显示+照片viewpager演示（放大、缩小）
 </br>
 ## Intro
 * 场景：社交类、工具类、游戏类App
-* 进度：由于目前比较忙，viewpager的演示，放大缩小功能尚未完成
+* 进度：已完成上述所有功能，有问题可以issue这里
 * 用途：照片的选择、演示
 * 如何使用：目前还在处理Maven仓库的问题，暂时无法提供`Library Denpendency`
 
 ##如何使用呢？
-~Scene1. 只用照片选择
+###Scene1. 只用照片选择
 调用下面的代码即可进入到照片选择
 ``` java
 Pickture.with(MainActivity.this).column(COLUMN).max(MAX).selected(selectedList).create();
@@ -34,7 +34,7 @@ ArrayList<String> selectedList = new ArrayList<>();
         }
     }
 ``` 
-~Scene2. 使用照片展示的GridView
+###Scene2. 使用照片展示的GridView
 这个时候需要使用到 
 ``` java
 import me.stefan.pickturelib.widget.PickRecyclerView;
@@ -48,12 +48,11 @@ import me.stefan.pickturelib.widget.PickRecyclerView;
             public void onClick(View v) {
                 //启用图片选择功能
                 mPickture.selected(selectedList).create();
-                //如果只是使用读取照片功能，可使用下面这个快捷通道，不需要再调用showOn方法去同步参数了
 
             }
         });
 
-         mPickture = Pickture.with(MainActivity.this).column(COLUMN).max(MAX).hasCamera(true).selected(selectedList);
+        mPickture = Pickture.with(MainActivity.this).column(COLUMN).max(MAX).hasCamera(true).selected(selectedList);
 
         //当需要同步展示到 PickRecyclerView 需要同步基础参数给你的 mPickRecyclerView ，这个方法就是用于同步的
         mPickture.showOn(mPickRecyclerView);

@@ -99,14 +99,15 @@ public class SelectableAdapter<T extends RecyclerView.ViewHolder> extends AnimRe
 
     /**
      * 设置已选中
+     *
      * @param selected
      */
     @Override
     public void setHasSelected(List<String> selected) {
 
-        if (selected != null && mFolderList != null && selected.size() != 0) {
+        if (selected != null && mFolderList != null && mFolderList.size() != 0 && selected.size() != 0) {
             for (Pic pic : mFolderList.get(0).getPics()) {
-                if (selected.contains(pic.getPath())&&!mSelectedStrList.contains(pic.getPath())) {
+                if (selected.contains(pic.getPath()) && !mSelectedStrList.contains(pic.getPath())) {
                     mSelectedList.add(pic);
                     mSelectedStrList.add(pic.getPath());
                 }

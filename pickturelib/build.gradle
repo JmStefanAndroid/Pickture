@@ -1,6 +1,6 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.jfrog.bintray'//添加bintray插件
-apply plugin: 'com.github.dcendents.android-maven'
+//apply plugin: 'com.jfrog.bintray'//添加bintray插件
+//apply plugin: 'com.github.dcendents.android-maven'
 
 android {
     compileSdkVersion Integer.parseInt(project.ANDROID_BUILD_SDK_VERSION)
@@ -32,6 +32,7 @@ dependencies {
     compile "com.android.support:recyclerview-v7:${ANDROID_BUILD_LIB_VERSION}"
     compile "com.android.support:design:${ANDROID_BUILD_LIB_VERSION}"
     compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.github.chrisbanes.photoview:library:1.2.3'
 }
 group = 'com.jmstefan'
 version = '1.0.0'
@@ -60,25 +61,25 @@ artifacts {
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
-bintray {
-    user = properties.getProperty("bintray.user")
-    key = properties.getProperty("bintray.apikey")
-
-    pkg {
-        repo = 'maven'
-        name = 'com.jmstefan'
-
-        version {
-            name = '1.0.0-release'
-            desc = "A small-scale android widget which provides easy attach to photo selection"
-            vcsTag = '1.0.0'
-        }
-
-        licenses = ['Apache-2.0']
-        vcsUrl = 'https://github.com/JmStefanAndroid/Pickture.git'
-        websiteUrl = 'https://github.com/JmStefanAndroid/Pickture'
-    }
-
-    configurations = ['archives']
-
-}
+//bintray {
+//    user = properties.getProperty("bintray.user")
+//    key = properties.getProperty("bintray.apikey")
+//
+//    pkg {
+//        repo = 'maven'
+//        name = 'com.jmstefan'
+//
+//        version {
+//            name = '1.0.0-release'
+//            desc = "A small-scale android widget which provides easy attach to photo selection"
+//            vcsTag = '1.0.0'
+//        }
+//
+//        licenses = ['Apache-2.0']
+//        vcsUrl = 'https://github.com/JmStefanAndroid/Pickture.git'
+//        websiteUrl = 'https://github.com/JmStefanAndroid/Pickture'
+//    }
+//
+//    configurations = ['archives']
+//
+//}
